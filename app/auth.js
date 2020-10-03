@@ -38,7 +38,7 @@ signupForm.addEventListener('submit', (e) => {
         const userId = credential.user.uid 
         const userData = {
             ingredients: [],
-            firsName,
+            firstName,
             lastName
         }
         db.collection("users").doc(userId).set(userData).then(() => {
