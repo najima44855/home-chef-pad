@@ -4,6 +4,7 @@ firebase.auth().onAuthStateChanged(user => {
     let signup_or_profile = document.querySelector('.signup-profile-toggle')
     let login_or_logout = document.querySelector('.login-logout-toggle')
     if (user) {
+        console.log(user) // remove later
         signup_or_profile.innerText = "Profile"
         signup_or_profile['href'] = './profile.html'
         login_or_logout.innerText = "Logout"

@@ -8,6 +8,9 @@ db.collection('users').get()
     // method to render current ingredients list for the user logged in
     setupIngredientsList(snapshot.docs)
 })
+.catch(e => {
+    console.log(e.message)
+})
 
 // listen for auth changes
 // useful for conditional rendering and restricting data the user sees
@@ -37,6 +40,7 @@ signupForm.addEventListener('submit', (e) => {
         }
         db.collection("users").doc(userId).set(userData).then(() => {
             console.log("User successfully added to the DB!");
+            window.location.href = "./profile.html"; // redirect user to their profile page
           })
         .catch((e) => {
             console.log("Error adding user to the DB: ", e);
