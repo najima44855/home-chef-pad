@@ -8,9 +8,27 @@ const setupIngredientsList = (data) => {
     const ingredientsList = document.querySelector('.ingredientList')
     let html = ''
     data.ingredients.forEach(ingredient => {
+        const searchUrl = "https://www.google.com/search?q=" + ingredient + " food" + "&source=lnms&tbm=isch";
+        const proxyurl = "https://cors-anywhere.herokuapp.com/";
+
+        fetch(proxyurl + searchUrl) // https://cors-anywhere.herokuapp.com/https://example.com
+        .then(response => response.text())
+        .then(contents => {
+            console.log(contents);
+
+
+            var el = $( '<div></div>' );
+            el.html(contents);
+
+
+            let srcToImg = $('img', el).first().attr('src')
+            console.log(srcToImg);
+        })
+        .catch(() => console.log("Can’t access " + searchUrl + " response. Blocked by browser?"))
+
         const li = `<li>
-            <div>
-                <button class="deleteIngredient">delete</button>
+            <div id="${ingredient}">
+                <button type="button" class="deleteIngredient">delete</button>
                 ${ingredient}
             </div>
         </li>`
@@ -43,30 +61,29 @@ updateIngredientRender = (user) => {
 
 // adding to the ingredient database
 const addIngredient = (user) => {
-    const matchedIngredientsList = document.querySelectorAll('.ingredientContainer') // change later
-    matchedIngredientsList[0].addEventListener('click', e => {
+    $(document).on('click', '.addIngredient', function() {
         db.collection('users').doc(user.uid).get()
         .then(doc => {
             let userIngredientsList = doc.data().ingredients;
-            userIngredientsList.push(matchedIngredientsList[0].outerText)
+            userIngredientsList.push($(this).text()); 
             db.collection('users').doc(user.uid).update({ingredients: userIngredientsList})
-            .then(() => console.log("updated successfully"))
+            .then(() => console.log("posted successfully"))
             .catch(e => console.log(e.message))
         })
-    })
+    });
 }
 
-// test: deletes first ingredient
+// deletes ingredient with specific id
 const deleteIngredient = (user) => {
-    const deleteBtn = document.querySelector('.deleteIngredient')
-    deleteBtn.addEventListener('click', e => {
+    $(document).on('click', '.deleteIngredient', function() {
         db.collection('users').doc(user.uid).get()
         .then(doc => {
             let userIngredientsList = doc.data().ingredients;
-            userIngredientsList.shift()
+            // queries the user ingredients list and removes the element with the matching id
+            userIngredientsList.splice(userIngredientsList.indexOf($(this).parent().attr('id')), 1); 
             db.collection('users').doc(user.uid).update({ingredients: userIngredientsList})
             .then(() => console.log("deleted successfully"))
             .catch(e => console.log(e.message))
         })
-    })
+    });
 }
