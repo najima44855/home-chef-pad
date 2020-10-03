@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="./forms.css">
+    <link rel="stylesheet" href="../css/forms.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -34,28 +34,24 @@
             </span>
         </div>
     </nav>
-    <!-- <form action="" class="signupForm account-form">
-        <input type="email" placeholder="email" id="signup-email"><br>
-        <input type="password" placeholder="password" id="signup-password"><br>
-        <input type="submit">
-    </form> -->
-    <div class="form-container">
+
+    <div class="form-container text-center">
         <h1 class="form-title">Signup</h1>
         <form class="signupForm">
             <div class="form-group form-input">
-                <label for="formGroupExampleInput">First Name</label>
+                <label for="formGroupExampleInput" class="input-label">First Name</label>
                 <input type="text" class="form-control signup-first-name" id="formGroupExampleInput" placeholder="John">
             </div>
             <div class="form-group form-input">
-                <label for="formGroupExampleInput2">Last Name</label>
+                <label for="formGroupExampleInput2" class="input-label">Last Name</label>
                 <input type="text" class="form-control signup-last-name" id="formGroupExampleInput2" placeholder="Doe">
             </div>
             <div class="form-group form-input">
-                <label for="formGroupExampleInput2">Email</label>
+                <label for="formGroupExampleInput2" class="input-label">Email</label>
                 <input type="text" class="form-control signup-email" id="formGroupExampleInput2" placeholder="jdoe@example.com">
             </div>
             <div class="form-group form-input">
-                <label for="formGroupExampleInput2">Password</label>
+                <label for="formGroupExampleInput2" class="input-label">Password</label>
                 <input type="text" class="form-control signup-password" id="formGroupExampleInput2" placeholder="password">
             </div>
             <input class="btn btn-primary submit-button" type="submit" value="Submit">
@@ -65,9 +61,8 @@
     <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-firestore.js"></script>
-    <!-- <script src="config.js"></script> -->
-    <script src="config.js"></script>
-    <script src="app.js"></script>
-    <script src="auth.js"></script>
+    <script src="../../config.js"></script>
+    <script src="../../app/app.js"></script>
+    <script src="../../app/auth.js"></script>
 </body>
 </html>

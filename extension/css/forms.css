@@ -17,7 +17,13 @@
 }
 
 .submit-button {
-    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.input-label {
+    margin-top: 10px;
+    float: left;
 }
 
 @media only screen and (min-width: 768px) {

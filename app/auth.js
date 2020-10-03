@@ -2,18 +2,19 @@
 // still need to allow users to add ingredients 
 
 // getting data for the specific user if they are logged in
-let user = firebase.auth().currentUser
-db.collection('users').get()
-.then(snapshot => {
-    // method to render current ingredients list for the user logged in
-    setupIngredientsList(snapshot.docs)
-})
-.catch(e => {
-    console.log(e.message)
-})
+// let user = firebase.auth().currentUser
+// db.collection('users').get()
+// .then(snapshot => {
+//     // method to render current ingredients list for the user logged in
+//     setupIngredientsList(snapshot.docs)
+// })
+// .catch(e => {
+//     console.log(e.message)
+// })
 
 // listen for auth changes
 // useful for conditional rendering and restricting data the user sees
+// not sure I actually need this
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
         console.log('user logged in', user)
@@ -27,7 +28,7 @@ const signupForm = document.querySelector('.signupForm')
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault()
     // get user info entered
-    const firsName = document.querySelector('.signup-first-name').value
+    const firstName = document.querySelector('.signup-first-name').value
     const lastName = document.querySelector('.signup-last-name').value
     const email = document.querySelector('.signup-email').value
     const password = document.querySelector('.signup-password').value
@@ -38,7 +39,7 @@ signupForm.addEventListener('submit', (e) => {
         const userId = credential.user.uid 
         const userData = {
             ingredients: [],
-            firsName,
+            firstName,
             lastName
         }
         db.collection("users").doc(userId).set(userData).then(() => {
@@ -51,24 +52,32 @@ signupForm.addEventListener('submit', (e) => {
     })
 })
 
-// logout
-const logout = document.querySelector('.logout')
-logout.addEventListener('click', (e) => {
-    e.preventDefault()
-    auth.signOut()
-    .then(() => {
-        console.log('user signed out')
-    })
-})
+// logout - not working for some reason
+// const logout = document.querySelector('.logout')
+// logout.addEventListener('click', (e) => {
+//     console.log('clicked')
+//     e.preventDefault()
+//     auth.signOut()
+//     .then(() => {
+//         console.log('user signed out')
+//     })
+//     .catch(e => {
+//         console.log(e.message)
+//     })
+// })
 
 //login
-const loginForm = document.querySelector('id/class')
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault()
-    const email = signupForm['email'].value
-    const password = signupForm['password'].value
-    auth.signInWithEmailAndPassword(email, password)
-    .then(cred => {
-        console.log(cred)
-    })
-})
+// const loginForm = document.querySelector('.login-form')
+// loginForm.addEventListener('submit', (e) => {
+//     e.preventDefault()
+//     const email = document.querySelector('#login-email').value
+//     const password = document.querySelector('#login-password').value
+//     auth.signInWithEmailAndPassword(email, password)
+//     .then(cred => {
+//         console.log(cred)
+//     })
+//     // user logged in with incorrect credentials - maybe add some html like what bootstrap does for forms
+//     .catch(e => {
+//         console.log("Incorrect credentials on login - incorrect username or password")
+//     })
+// })
