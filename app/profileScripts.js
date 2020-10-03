@@ -9,7 +9,10 @@ const setupIngredientsList = (data) => {
     let html = ''
     data.ingredients.forEach(ingredient => {
         const li = `<li>
-            <div>${ingredient}</div>
+            <div>
+                <button class="deleteIngredient">delete</button>
+                ${ingredient}
+            </div>
         </li>`
         html += li
     })
