@@ -8,7 +8,7 @@ searchButton.addEventListener('click', (e) => {
             .then(async doc => {
                 let userIngredientsList = doc.data().ingredients
                 console.log(userIngredientsList)
-                const matchedRecipes = await search(userIngredientsList, '276ea105bcdb477cb6ee5f5569ce2762') // dont commit this with this key!
+                const matchedRecipes = await search(userIngredientsList, 'cc7d838a21eb47939d601cf028e608ee') // dont commit this with this key!
                 console.log(matchedRecipes)
                 matchedRecipes.forEach(recipe => {
                     let li = document.createElement('li')
