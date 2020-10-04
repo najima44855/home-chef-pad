@@ -52,7 +52,6 @@ searchButton.addEventListener('click', (e) => {
 // might put this into a function that is called after the above function is done running, as results with hearts
 // are only rendered after the user searches for recipes
 // fill in heart on click - also need to add it to user database
-// access all info from the dom above
 const favoriteIcon = document.querySelectorAll('.favorite-icon')
 for (let i = 0; i < favoriteIcon.length; i++) {
     favoriteIcon[i].addEventListener('click', (e) => {
@@ -76,6 +75,8 @@ for (let i = 0; i < favoriteIcon.length; i++) {
                         recipeTitle
                     }
                     userRecipeList.push(recipeData)
+                    .catch(e => console.log(e.message))
+                    
                     db.collection('users').doc(user.uid).update({recipes: userRecipeList})
                     .then(() => console.log("updated successfully"))
                     .catch(e => console.log(e.message))
