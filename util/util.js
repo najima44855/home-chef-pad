@@ -29,7 +29,8 @@ const weightings = {
     driedFruits: .3,
     online: .1,
     grillingSupplies: .1,
-    bread: .9
+    bread: .9,
+    null: 1
 }
 
 async function search(ingredients, key) {
@@ -44,41 +45,41 @@ async function search(ingredients, key) {
 
     query += "&apiKey=" + key;
 
-    opts = {
-        url: query,
-    }
+    // opts = {
+    //     url: query,
+    // }
 
     fetch(query)
         .then(res => res.json())
         .then(function(data) {
-                // Build url for new query which gets more recipe data
-                let query = "https://api.spoonacular.com/recipes/informationBulk?ids=";
+            // Build url for new query which gets more recipe data
+            let query = "https://api.spoonacular.com/recipes/informationBulk?ids=";
 
-                // recipes = JSON.parse(data);
-                let recipes = data;
-                let ids = recipes.map(function(result) {
-                    return result.id;
-                });
+            // recipes = JSON.parse(data);
+            let recipes = data;
+            let ids = recipes.map(function(result) {
+                return result.id;
+            });
 
-                for (let i = 0; i < ids.length; i++) {
-                    query += ids[i];
-                    if (ids.length - i - 1) query += ',';
-                }
+            for (let i = 0; i < ids.length; i++) {
+                query += ids[i];
+                if (ids.length - i - 1) query += ',';
+            }
 
-                query += "&apiKey=" + key;
+            query += "&apiKey=" + key;
 
-                fetch(query)
-                    .then(res => res.json())
-                    .then(function(data) {
-                            // let recipeData = JSON.parse(body);
-                            let recipeData = data;
-                            data = evaluate(recipes, recipeData);
+            fetch(query)
+                .then(res => res.json())
+                .then(function(data) {
+                        // let recipeData = JSON.parse(body);
+                        let recipeData = data;
+                        data = evaluate(recipes, recipeData);
 
-                            return data;
-                            // console.log(data);
-                        }
-                    )
-                    .catch(err => console.log(err))
+                        return data;
+                        // console.log(data);
+                    }
+                )
+                .catch(err => console.log(err))
             }
         )
         .catch(err => console.log(err));
@@ -140,6 +141,14 @@ function evaluate(recipes, recipeData) {
 
         function grab(obj) {
             let categories = obj['aisle'];
+
+            if (!categories) {
+                return {
+                    name: obj['name'],
+                    categories: 'null'
+                }
+            }
+
             categories = categories.split(';');
             categories = categories.map(function(cat) {
                 return toCamelCase(removePunct(cat));
