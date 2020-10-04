@@ -32,7 +32,7 @@ const weightings = {
     bread: .9
 }
 
-function search(ingredients, key) {
+async function search(ingredients, key) {
     
     let query = "https://api.spoonacular.com/recipes/findByIngredients?number=100&ranking=2&addRecipeInformation=true&ingredients=";
     for (var i = ingredients.length - 1; i >= 0; i--) {
@@ -74,7 +74,8 @@ function search(ingredients, key) {
                             let recipeData = data;
                             data = evaluate(recipes, recipeData);
 
-                            console.log(data);
+                            return data;
+                            // console.log(data);
                         }
                     )
                     .catch(err => console.log(err))
@@ -182,7 +183,12 @@ function evaluate(recipes, recipeData) {
             url: url,
             sourceUrl: additionalData.sourceUrl,
             image: additionalData.image,
-            relevance: (1/3) * (importance + missedRatio + popularity)
+            relevance: (1/3) * (importance + missedRatio + popularity),
+            glutenFree: additionalData.glutenFree,
+            ketogenic: additionalData.ketogenic,
+            vegetarian: additionalData.vegetarian,
+            vegan: additionalData.vegan,
+            dairyFree: additionalData.dairyFree
         });
 
     }
@@ -190,15 +196,25 @@ function evaluate(recipes, recipeData) {
     return data.sort(sortBy('relevance'));
 }
 
-// function filter(results, field) {
+function filter(results, field) {
 
-//     for (let i = results.length; i > )
+    let filtered = [];
 
-// }
+    for (let i = results.length; i >= 0; i--) {
+        let result = results[i];
+
+        if (field in result) {
+            filtered.unshift(result);
+        }
+    }
+
+    return filtered;
+
+}
 
 function toCamelCase(str) {
     return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
-        if (+match === 0) return "";
+        if (match === 0) return "";
         return index === 0 ? match.toLowerCase() : match.toUpperCase();
     });
 }
