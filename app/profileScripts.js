@@ -130,22 +130,26 @@ const deleteIngredient = (user) => {
 // list recipes in user's profile by using bootstrap cards
 const setupRecipeList = (data, user) => {
     const recipeContainer = document.querySelector('.recipe-container')
-    const userRecipes = data.recipes
-    let html = ''
-    userRecipes.forEach(recipe => {
-        const card = `
-        <div class="card recipe-card">
-            <img src=${recipe.recipeImg} class="card-img-top" alt="...">
-            <i class="fas fa-times delete-recipe-x"></i>
-            <div class="card-body">
-                <a href="${recipe.recipeUrl}">${recipe.recipeTitle}</a>
-            </div>
-        </div>`
-
-        html += card
-    })
-    recipeContainer.innerHTML = html
-    deleteRecipe(user)
+    if (data.recipes.length == 0) {
+        recipeContainer.innerHTML = '<div class="null-or-empty-data">You have no favorite recipes 😢 Go to Recipes to get searching!</div>`';
+    } else {
+        const userRecipes = data.recipes
+        let html = ''
+        userRecipes.forEach(recipe => {
+            const card = `
+            <div class="card recipe-card">
+                <img src=${recipe.recipeImg} class="card-img-top" alt="...">
+                <i class="fas fa-times delete-recipe-x"></i>
+                <div class="card-body">
+                    <a href="${recipe.recipeUrl}">${recipe.recipeTitle}</a>
+                </div>
+            </div>`
+    
+            html += card
+        })
+        recipeContainer.innerHTML = html
+        deleteRecipe(user)
+    }
 }
 
 // deletes recipe from user profile
