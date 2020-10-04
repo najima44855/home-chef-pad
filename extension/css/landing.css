@@ -1,32 +1,45 @@
+@font-face {
+    font-family: "VeganStyle";
+    src: url('../fonts/VeganStylePersonalUse-5Y58.ttf');
+}
+
+.navbar-brand {
+    font-family: "VeganStyle";
+}
+
 .title-content {
     /* width: 200px;
     height: 200px; */
     /* margin-left: 80%; */
     /* float: right; */
-    /* max-width: 200px;
-    float: right;
-    margin-right: 30%;
-    color: white;
-    margin-top: 15px; */
-    max-width: 300px;
-    color: white;
-    margin: auto;
-    vertical-align: center;
     text-align: center;
+    color: white;
+    font-family: "VeganStyle";
+    width: 100%;
+    margin-top: 150px;
 }
 
 .title-content h1 {
-    font-size: 4rem;
+    font-size: 70px;
+}
+
+.fa-icon {
+    margin: 25px 0 20px 0;
 }
 
 #stripe {
     margin-top: 20px;
 }
 
-hr {
-    margin-top: 2px;
-    margin-bottom: 2px;
-    color: white;
+.title-content p {
+    font-family: initial;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.title-content button {
+    font-family: initial;
+    font-weight: bold;
 }
 
 @media only screen and (max-width: 768px) {
@@ -36,6 +49,10 @@ hr {
         margin: auto;
         display: block;
         float: none;
+    }
+
+    .title-content p {
+        font-size: 16px;
     }
 }
 
