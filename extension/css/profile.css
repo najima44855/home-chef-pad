@@ -4,6 +4,13 @@
     margin-right: 5px;
 }
 
+.delete-recipe-x {
+    position: absolute;
+    top: 2%;
+    right: 5%;
+    color: red;
+}
+
 /* .recipe-container {
 
 } */
