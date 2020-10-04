@@ -190,11 +190,11 @@ function evaluate(recipes, recipeData) {
     return data.sort(sortBy('relevance'));
 }
 
-function filter(results, field) {
+// function filter(results, field) {
 
-    for (let i = results.length; i > )
+//     for (let i = results.length; i > )
 
-}
+// }
 
 function toCamelCase(str) {
     return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
