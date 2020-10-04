@@ -67,7 +67,19 @@ const addIngredient = (user) => {
         db.collection('users').doc(user.uid).get()
         .then(doc => {
             let userIngredientsList = doc.data().ingredients;
-            userIngredientsList.push($(this).text()); 
+            let ingredientSelector = $('#ingredientSelector');
+            let additions = ingredientSelector.select2('data');
+
+            if (additions.length == 0) {
+                alert('Please enter one or more ingredients');
+                return;
+            }
+
+            additions.forEach((ingredient) => {
+                userIngredientsList.push(ingredient.text);
+            })
+            
+            ingredientSelector.val(null).trigger('change');
             db.collection('users').doc(user.uid).update({ingredients: userIngredientsList})
             .then(() => console.log("posted successfully"))
             .catch(e => console.log(e.message))
@@ -109,4 +121,22 @@ const setupRecipeList = (data) => {
         html += card
     })
     recipeContainer.innerHTML = html
+}
+
+// Sets up ingredient selector
+const setup = () => {
+    $(document).ready(function(){
+        $("#ingredientSelector").select2({
+            tags: true
+        });
+
+        var data = ['cheese', 'tomato'];
+
+        var html = "";
+        for (var i = 0; i < data.length; i++) {
+            html += "<option>" + data[i].replace('-', ' ') + "</option>";
+        }
+        
+        $('#ingredientSelector').html(html);
+    });
 }
