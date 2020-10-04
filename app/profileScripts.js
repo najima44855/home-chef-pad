@@ -5,26 +5,43 @@
 
 // setup ingredients list render
 const setupIngredientsList = (data) => {
-    const ingredientsList = document.querySelector('.ingredientList')
-    let html = ''
-    data.ingredients.forEach(ingredient => {
-        var imageUrl = "";
-        imageUrl = getImageUrl(ingredient, function(ingredient) {
-            return ingredient;
-        });
-        imageUrl = "https://images-prod.healthline.com/hlcmsresource/images/AN_images/tomatoes-1296x728-feature.jpg";
-        const li = `<li>
-            <div class="ingredient-container" id="${ingredient}">
-                <button type="button" class="deleteIngredient fa fa-close"></button>
-                <img src=${imageUrl} width="150px" />
-                <div class="ingredient-name">${ingredient}</div>
-            </div>
-        </li>`
-        html += li
-    })
-    ingredientsList.innerHTML = html
+
+    // sets up individual boxes for each ingredient
+    // ideally we'd have a database with all our images but since we don't,
+    // we have to resort to looking up using unsplash api which takes a lot
+    // longer per query
+    document.getElementById('ingredientList').innerHTML = "";
+    if (data.ingredients.length == 0) {
+        document.getElementById('ingredientList').innerHTML = `<div class="null-or-empty-data">You have no ingredients 😢 Add some below!</div>`;
+    } else {
+        data.ingredients.forEach(ingredient => {
+            var imageUrl = "";
+            getImageUrl(ingredient, function(url) {
+                imageUrl = url;
+                const li = `<li>
+                    <div class="ingredient-container" id="${ingredient}">
+                        <button type="button" class="deleteIngredient fa fa-close"></button>
+                            <div class="img-container">
+                                <img src=${imageUrl} width="150px" />
+                            </div>
+                        <div class="ingredient-name">${ingredient}</div>
+                    </div>
+                </li>`
+                document.getElementById('ingredientList').innerHTML = document.getElementById('ingredientList').innerHTML + li;
+            });  
+        });  
+    }
 }
 
+// setup welcome message
+const setupWelcomeMessage = (data) => {
+    const ingredientsList = document.querySelector('.welcome-message')
+    let html = ''
+    html = "Welcome, " + data.firstName + "! What's cooking today? 🍴";
+    ingredientsList.innerHTML = html;
+}
+
+// helper method to return the right image url using unsplash api
 function getImageUrl(ingredient, callback) {
     var xmlhttp = new XMLHttpRequest();
     const url = 'https://api.unsplash.com/search/photos?query=' + ingredient + '&client_id=-hTRcqf09FnTMrV1yhTQnT_Qa5KDFHkpU0Mlhs_zOpQ&per_page=1';
@@ -47,9 +64,9 @@ function getImageUrl(ingredient, callback) {
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         deleteRecipe(user)
-        updateIngredientRender(user)
         addIngredient(user)
         deleteIngredient(user)
+        updateIngredientRender(user)
     } else {
       console.log('something is obviously wrong here, profile page should be inacessible unless user logged in')
     }
@@ -61,6 +78,7 @@ updateIngredientRender = (user) => {
     db.collection('users').doc(user.uid).onSnapshot(snapshot => {
         // method to render current ingredients list for the user logged in
         setupIngredientsList(snapshot.data())
+        setupWelcomeMessage(snapshot.data())
         setupRecipeList(snapshot.data(), user)
     }, err => {
         console.log(err.message)
