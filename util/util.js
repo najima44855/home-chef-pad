@@ -37,7 +37,7 @@ async function search(ingredients, key) {
     
     let query = "https://api.spoonacular.com/recipes/findByIngredients?number=100&ranking=2&addRecipeInformation=true&ingredients=";
     for (var i = ingredients.length - 1; i >= 0; i--) {
-        query += ingredients[i];
+        query += ingredients[i].replace(/ /, '+');
         if (i > 0) {
             query += ',';
         }
