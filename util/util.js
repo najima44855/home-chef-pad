@@ -234,7 +234,7 @@ function evaluate(recipes, recipeData) {
         data.push({
             title: recipe.title,
             score: additionalData.spoonacularScore,
-            pricePerServing: additionalData.pricePerServing,
+            pricePerServing: (additionalData.pricePerServing / 100).toFixed(2),
             readyIn: additionalData.readyInMinutes,
             summary: additionalData.summary,
             url: url,
