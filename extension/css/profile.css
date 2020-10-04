@@ -24,6 +24,31 @@ h3 {
     color: red;
 }
 
+.content {
+    padding: 2%;
+}
+
+li:nth-child(odd) { 
+    background: lightgray; 
+}
+
+/* .ingredientList {
+    list-style-type: none;
+    list-style: none;
+    padding-left: 0%;
+    width: 100%;
+    margin: 0 auto;
+} */
+
+.recipe-container {
+    float: right;
+}
+
+#ingredientSelector {
+    width: 50%;
+    margin: 0 auto;
+}
+
 .ingredientList {
     list-style-type: none;
     overflow-x: auto;

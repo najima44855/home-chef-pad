@@ -75,7 +75,6 @@ for (let i = 0; i < favoriteIcon.length; i++) {
                         recipeTitle
                     }
                     userRecipeList.push(recipeData)
-                    .catch(e => console.log(e.message))
                     
                     db.collection('users').doc(user.uid).update({recipes: userRecipeList})
                     .then(() => console.log("updated successfully"))
