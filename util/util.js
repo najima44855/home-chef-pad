@@ -55,7 +55,7 @@ function search(ingredients, key) {
                 let query = "https://api.spoonacular.com/recipes/informationBulk?ids=";
 
                 // recipes = JSON.parse(data);
-                recipes = data;
+                let recipes = data;
                 let ids = recipes.map(function(result) {
                     return result.id;
                 });
@@ -71,7 +71,7 @@ function search(ingredients, key) {
                     .then(res => res.json())
                     .then(function(data) {
                             // let recipeData = JSON.parse(body);
-                            let recipesData = data;
+                            let recipeData = data;
                             data = evaluate(recipes, recipeData);
 
                             console.log(data);
@@ -188,6 +188,12 @@ function evaluate(recipes, recipeData) {
     }
 
     return data.sort(sortBy('relevance'));
+}
+
+function filter(results, field) {
+
+    for (let i = results.length; i > )
+
 }
 
 function toCamelCase(str) {
