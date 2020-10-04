@@ -48,11 +48,13 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 });
 
+// use this function to also render the recipes list
 updateIngredientRender = (user) => {
     // checks for current user and displays ingredients only in that users profile
     db.collection('users').doc(user.uid).onSnapshot(snapshot => {
         // method to render current ingredients list for the user logged in
         setupIngredientsList(snapshot.data())
+        setupRecipeList(snapshot.data())
     }, err => {
         console.log(err.message)
     })
@@ -98,6 +100,27 @@ const deleteIngredient = (user) => {
             .catch(e => console.log(e.message))
         })
     });
+}
+
+// deletes recipe chosen by user
+
+// list recipes in user's profile by using bootstrap cards
+const setupRecipeList = (data) => {
+    const recipeContainer = document.querySelector('.recipe-container')
+    const userRecipes = data.recipes
+    let html = ''
+    userRecipes.forEach(recipe => {
+        const card = `
+        <div class="card recipe-card">
+            <img src=${recipe.recipeImg} class="card-img-top" alt="...">
+            <div class="card-body">
+                <a href="${recipe.recipeUrl}">${recipe.recipeTitle}</a>
+            </div>
+        </div>`
+
+        html += card
+    })
+    recipeContainer.innerHTML = html
 }
 
 // Sets up ingredient selector
