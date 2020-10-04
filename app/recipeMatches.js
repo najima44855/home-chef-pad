@@ -16,10 +16,10 @@ searchButton.addEventListener('click', (e) => {
                             `<div class="container recipe-matches-container">
                             <div class="row recipe-info-container">
                                 <div class="col-6 col-md-3 recipe-image">
-                                    <img src="${recipe.image}" alt="Card image">
+                                    <img src="${recipe.image}" alt="Card image" class="recipe-img-link>
                                 </div>
                                 <div class="col-6 col-md-9">
-                                    <h3>${recipe.title}</h3>
+                                    <h3 class="recipe-title">${recipe.title}</h3>
                                     <div class="recipe-graphic-container">
                                     <div class="icon-container">
                                         <i class="fas fa-dollar-sign icon"></i>
@@ -35,7 +35,7 @@ searchButton.addEventListener('click', (e) => {
                                     </div>
                                     </div>
                                     <p class="recipe-summary">${recipe.summary}</p>
-                                    <a href="${recipe.sourceUrl}">Get the Recipe >></a>
+                                    <a href="${recipe.sourceUrl}" class="recipe-url">Get the Recipe >></a>
                                 </div>
                             </div>
                         </div>`
@@ -48,3 +48,39 @@ searchButton.addEventListener('click', (e) => {
         }
     })
 })
+
+// might put this into a function that is called after the above function is done running, as results with hearts
+// are only rendered after the user searches for recipes
+// fill in heart on click - also need to add it to user database
+// access all info from the dom above
+const favoriteIcon = document.querySelectorAll('.favorite-icon')
+for (let i = 0; i < favoriteIcon.length; i++) {
+    favoriteIcon[i].addEventListener('click', (e) => {
+        // prevents user from clicking on item already clicked
+        if (favoriteIcon[i].classList.contains('fas')) {
+            return;
+        }
+        favoriteIcon[i].classList.remove('far')
+        favoriteIcon[i].classList.add('fas')
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                db.collection('users').doc(user.uid).get()
+                .then(doc => {
+                    let userRecipeList = doc.data().recipes;
+                    const recipeUrl = document.querySelector(".recipe-url").href
+                    const recipeImg = document.querySelector('.recipe-img-link').src
+                    const recipeTitle = document.querySelector('.recipe-title').textContent
+                    const recipeData = {
+                        recipeUrl,
+                        recipeImg,
+                        recipeTitle
+                    }
+                    userRecipeList.push(recipeData)
+                    db.collection('users').doc(user.uid).update({recipes: userRecipeList})
+                    .then(() => console.log("updated successfully"))
+                    .catch(e => console.log(e.message))
+                })
+            }
+        })
+    })
+}
