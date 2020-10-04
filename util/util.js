@@ -45,90 +45,136 @@ async function search(ingredients, key) {
 
     query += "&apiKey=" + key;
 
-    // opts = {
-    //     url: query,
-    // }
+    opts = {
+        url: query,
+    }
 
-    fetch(query)
-        .then(res => res.json())
-        .then(function(data) {
-            // Build url for new query which gets more recipe data
-            let query = "https://api.spoonacular.com/recipes/informationBulk?ids=";
+    const res = await fetch(query)
+    const data = await res.json()
 
-            // recipes = JSON.parse(data);
-            let recipes = data;
-            let ids = recipes.map(function(result) {
-                return result.id;
-            });
+    let secondQuery = "https://api.spoonacular.com/recipes/informationBulk?ids=";
 
-            for (let i = 0; i < ids.length; i++) {
-                query += ids[i];
-                if (ids.length - i - 1) query += ',';
-            }
+    // recipes = JSON.parse(data);
+    let recipes = data;
+    console.log(recipes)
+    let ids = recipes.map(function(result) {
+        return result.id;
+    });
 
-            query += "&apiKey=" + key;
+    for (let i = 0; i < ids.length; i++) {
+        secondQuery += ids[i];
+        if (ids.length - i - 1) secondQuery += ',';
+    }
 
-            fetch(query)
-                .then(res => res.json())
-                .then(function(data) {
-                        // let recipeData = JSON.parse(body);
-                        let recipeData = data;
-                        data = evaluate(recipes, recipeData);
+    secondQuery += "&apiKey=" + key;
+    const queryRes = await fetch(secondQuery)
+    let secondCallData = await queryRes.json()
+    console.log(secondCallData)
+    // let recipeData = JSON.parse(body);
+    let recipeData = secondCallData;
+    console.log(recipeData)
+    secondCallData = evaluate(recipes, recipeData);
 
-                        return data;
-                        // console.log(data);
-                    }
-                )
-                .catch(err => console.log(err))
-            }
-        )
-        .catch(err => console.log(err));
-
-    // request(opts, function(err, res, body) {
-    //     if (err) {
-    //         console.log(err);
-    //         return;
-    //     }
-
-    //     // Build url for new query which gets more recipe data
-    //     let query = "https://api.spoonacular.com/recipes/informationBulk?ids=";
-
-    //     recipes = JSON.parse(body);
-    //     let ids = recipes.map(function(result) {
-    //         return result.id;
-    //     });
-
-    //     for (let i = 0; i < ids.length; i++) {
-    //         query += ids[i];
-    //         if (ids.length - i - 1) query += ',';
-    //     }
-
-    //     query += "&apiKey=" + key;
-
-    //     opts = {
-    //         url: query
-    //     }
-
-    //     // Grab info about each recipe we found
-    //     request(opts, function(err, res, body) {
-    //         if (err) {
-    //             console.log(err);
-    //             return;
-    //         }
-
-    //         let recipeData = JSON.parse(body);
-    //         data = evaluate(recipes, recipeData);
-
-    //         // console.log(data);
-
-    //         /*
-
-    //         the variable 'data' stores the JSON response
-
-    //         */
-    //     });
-    // });   
+    console.log(secondCallData);
+    return secondCallData;
 }
+
+// async function search(ingredients, key) {
+    
+//     let query = "https://api.spoonacular.com/recipes/findByIngredients?number=100&ranking=2&addRecipeInformation=true&ingredients=";
+//     for (var i = ingredients.length - 1; i >= 0; i--) {
+//         query += ingredients[i];
+//         if (i > 0) {
+//             query += ',';
+//         }
+//     }
+
+//     query += "&apiKey=" + key;
+
+//     // opts = {
+//     //     url: query,
+//     // }
+
+//     fetch(query)
+//         .then(res => res.json())
+//         .then(function(data) {
+//             // Build url for new query which gets more recipe data
+//             let query = "https://api.spoonacular.com/recipes/informationBulk?ids=";
+
+//             // recipes = JSON.parse(data);
+//             let recipes = data;
+//             let ids = recipes.map(function(result) {
+//                 return result.id;
+//             });
+
+//             for (let i = 0; i < ids.length; i++) {
+//                 query += ids[i];
+//                 if (ids.length - i - 1) query += ',';
+//             }
+
+//             query += "&apiKey=" + key;
+
+//             fetch(query)
+//                 .then(res => res.json())
+//                 .then(function(data) {
+//                         // let recipeData = JSON.parse(body);
+//                         let recipeData = data;
+//                         data = evaluate(recipes, recipeData);
+
+//                         return data;
+//                         // console.log(data);
+//                     }
+//                 )
+//                 .catch(err => console.log(err))
+//             }
+//         )
+//         .catch(err => console.log(err));
+
+//     // request(opts, function(err, res, body) {
+//     //     if (err) {
+//     //         console.log(err);
+//     //         return;
+//     //     }
+
+//     //     // Build url for new query which gets more recipe data
+//     //     let query = "https://api.spoonacular.com/recipes/informationBulk?ids=";
+
+//     //     recipes = JSON.parse(body);
+//     //     let ids = recipes.map(function(result) {
+//     //         return result.id;
+//     //     });
+
+//     //     for (let i = 0; i < ids.length; i++) {
+//     //         query += ids[i];
+//     //         if (ids.length - i - 1) query += ',';
+//     //     }
+
+//     //     query += "&apiKey=" + key;
+
+//     //     opts = {
+//     //         url: query
+//     //     }
+
+//     //     // Grab info about each recipe we found
+//     //     request(opts, function(err, res, body) {
+//     //         if (err) {
+//     //             console.log(err);
+//     //             return;
+//     //         }
+
+//     //         let recipeData = JSON.parse(body);
+//     //         data = evaluate(recipes, recipeData);
+
+//     //         // console.log(data);
+
+//     //         /*
+
+//     //         the variable 'data' stores the JSON response
+
+//     //         */
+//     //     });
+//     // });   
+// }
 
 function evaluate(recipes, recipeData) {
 
@@ -141,6 +187,7 @@ function evaluate(recipes, recipeData) {
 
         function grab(obj) {
             let categories = obj['aisle'];
+            console.log(categories)
 
             if (!categories) {
                 return {
@@ -163,9 +210,10 @@ function evaluate(recipes, recipeData) {
         let missed = recipe.missedIngredients.map(grab);
         let used = recipe.usedIngredients.map(grab);
         let unused = recipe.unusedIngredients.map(grab);
-
+        console.log("missed[0] " + missed)
+        console.log(typeof(missed.categories))
         let importance;
-        if (missed[0] == undefined) {
+        if (!missed[0] || !(missed[0].categories instanceof Array)) {
             importance = 1;
         } else {
             importance = 1 - Math.max.apply(Math, missed[0].categories.map(function(name) {
@@ -199,9 +247,9 @@ function evaluate(recipes, recipeData) {
             vegan: additionalData.vegan,
             dairyFree: additionalData.dairyFree
         });
-
     }
 
+    console.log(data)
     return data.sort(sortBy('relevance'));
 }
 
