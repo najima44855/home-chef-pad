@@ -10,6 +10,14 @@
 /* .recipe-graphic p {
     margin-bottom: 5px;
 } */
+@font-face {
+    font-family: "VeganStyle";
+    src: url('../fonts/VeganStylePersonalUse-5Y58.ttf');
+}
+
+.navbar-brand {
+    font-family: "VeganStyle";
+}
 
 .search-button {
     margin: auto;
