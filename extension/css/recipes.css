@@ -11,6 +11,14 @@
     margin-bottom: 5px;
 } */
 
+.search-button {
+    margin: auto;
+    width: 20%;
+    display: block;
+    margin-top: 20px;
+    font-size: 25px;
+}
+
 .recipe-image img {
     max-width: 100%;
     height: auto;

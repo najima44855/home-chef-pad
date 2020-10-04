@@ -8,33 +8,39 @@ const setupIngredientsList = (data) => {
     const ingredientsList = document.querySelector('.ingredientList')
     let html = ''
     data.ingredients.forEach(ingredient => {
-        const searchUrl = "https://www.google.com/search?q=" + ingredient + " food" + "&source=lnms&tbm=isch";
-        const proxyurl = "https://cors-anywhere.herokuapp.com/";
-
-        fetch(proxyurl + searchUrl) // https://cors-anywhere.herokuapp.com/https://example.com
-        .then(response => response.text())
-        .then(contents => {
-            console.log(contents);
-
-
-            var el = $( '<div></div>' );
-            el.html(contents);
-
-
-            let srcToImg = $('img', el).first().attr('src')
-            console.log(srcToImg);
-        })
-        .catch(() => console.log("Can’t access " + searchUrl + " response. Blocked by browser?"))
-
+        var imageUrl = "";
+        imageUrl = getImageUrl(ingredient, function(ingredient) {
+            return ingredient;
+        });
+        imageUrl = "https://images-prod.healthline.com/hlcmsresource/images/AN_images/tomatoes-1296x728-feature.jpg";
         const li = `<li>
-            <div id="${ingredient}">
-                ${ingredient}
-                <button type="button" class="deleteIngredient">delete</button>
+            <div class="ingredient-container" id="${ingredient}">
+                <button type="button" class="deleteIngredient fa fa-close"></button>
+                <img src=${imageUrl} width="150px" />
+                <div class="ingredient-name">${ingredient}</div>
             </div>
         </li>`
         html += li
     })
     ingredientsList.innerHTML = html
+}
+
+function getImageUrl(ingredient, callback) {
+    var xmlhttp = new XMLHttpRequest();
+    const url = 'https://api.unsplash.com/search/photos?query=' + ingredient + '&client_id=-hTRcqf09FnTMrV1yhTQnT_Qa5KDFHkpU0Mlhs_zOpQ&per_page=1';
+    xmlhttp.onreadystatechange = function() {
+        if(xmlhttp.readyState==4 && xmlhttp.status==200) {
+            content = JSON.parse(xmlhttp.responseText);
+            imageUrl = content.results[0].urls.full;
+            if(imageUrl != '' && (imageUrl)) {
+                callback(imageUrl);
+            } else {
+                callback("");
+            }
+        }
+    }
+    xmlhttp.open('GET', url);
+    xmlhttp.send();
 }
 
 // this is currently handling profile crud operations: good 
