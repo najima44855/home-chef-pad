@@ -129,28 +129,30 @@ const deleteIngredient = (user) => {
 
 // list recipes in user's profile by using bootstrap cards
 const setupRecipeList = (data, user) => {
-    const recipeContainer = document.querySelector('.recipe-container')
-    const userRecipes = data.recipes
-    let html = ''
-    userRecipes.forEach(recipe => {
-        const card = `
-        <div class="card recipe-card">
-            <img src=${recipe.recipeImg} class="card-img-top" alt="...">
-            <i class="fas fa-times delete-recipe-x"></i>
-            <div class="card-body">
-                <a href="${recipe.recipeUrl}">${recipe.recipeTitle}</a>
-            </div>
-        </div>`
-
-        html += card
-    })
-    recipeContainer.innerHTML = html
+    document.getElementById('recipeList').innerHTML = "";
+    if (data.recipes.length == 0) {
+        document.getElementById('recipeList').innerHTML = `<div class="null-or-empty-data">You have no recipes 😢 Add some by looking them up!</div>`;
+    } else {
+        data.recipes.forEach(recipe => {
+            const li = `<li>
+                <div class="recipe-container">
+                    <button type="button" class="deleteRecipe fa fa-close"></button>
+                        <div class="img-container">
+                            <img src=${recipe.recipeImg} width="150px" />
+                        </div>
+                    <a class="recipe-name">${recipe.recipeTitle}</a>
+                </div>
+            </li>`
+            document.getElementById('recipeList').innerHTML = document.getElementById('ingredientList').innerHTML + li;
+        });  
+    }
+    
     deleteRecipe(user)
 }
 
 // deletes recipe from user profile
 const deleteRecipe = (user) => {
-    const deleteButtons = document.querySelectorAll('.delete-recipe-x')
+    const deleteButtons = document.querySelectorAll('.deleteRecipe')
     for(let i = 0; i < deleteButtons.length; i++) {
         deleteButtons[i].addEventListener('click', (e) => {
             db.collection('users').doc(user.uid).get()
