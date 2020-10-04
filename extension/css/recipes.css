@@ -87,7 +87,7 @@ ul {
     position: absolute;
     color: red;
     /* vertical-align: top; */
-    top: 3%;
+    top: 1%;
     right: 2%;
     font-size: 24px;
 }
@@ -146,7 +146,7 @@ ul {
     }
 
     .favorite-icon {
-        top: 5%;
-        right: 8%
+        top: 0%;
+        right: 2%
     }
   }

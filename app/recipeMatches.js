@@ -1,7 +1,7 @@
 // get user ingredients and render to the html dom
 const searchButton = document.querySelector('.search-button')
 searchButton.addEventListener('click', (e) => {
-    const recipeLister = document.querySelector('.recipe-lister')
+    const recipeLister = document.querySelector('.outer-recipe-container')
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             db.collection('users').doc(user.uid).get()
@@ -10,20 +10,40 @@ searchButton.addEventListener('click', (e) => {
                 console.log(userIngredientsList)
                 const matchedRecipes = await search(userIngredientsList, 'cc7d838a21eb47939d601cf028e608ee') // dont commit this with this key!
                 console.log(matchedRecipes)
+                let html = ''
+                // const matchedRecipes = [
+                //     {
+                //         title: 'Tuna Pasta',
+                //         score: 89,
+                //         pricePerServing: 160,
+                //         readyIn: 60,
+                //         summary: 'adwazfgaegagasgsagagda',
+                //         sourceUrl: 'http://google.com'
+                //     },
+                //     {
+                //         title: 'Other Pasta',
+                //         score: 80,
+                //         pricePerServing: 100,
+                //         readyIn: 45,
+                //         summary: 'adawfasfawfsasfawsfasfas',
+                //         sourceUrl: 'http://google.com'
+                //     }
+                // ]
                 matchedRecipes.forEach(recipe => {
-                    let li = document.createElement('li')
-                    li.innerHTML =
+                    // let li = document.createElement('li')
+                    const div =
                             `<div class="container recipe-matches-container">
                             <div class="row recipe-info-container">
                                 <div class="col-6 col-md-3 recipe-image">
-                                    <img src="${recipe.image}" alt="Card image" class="recipe-img-link>
+                                    <img src="${recipe.image}" alt="Card image" class="recipe-img-link">
                                 </div>
                                 <div class="col-6 col-md-9">
                                     <h3 class="recipe-title">${recipe.title}</h3>
+                                    <i class="far fa-heart favorite-icon"></i>
                                     <div class="recipe-graphic-container">
                                     <div class="icon-container">
                                         <i class="fas fa-dollar-sign icon"></i>
-                                        <p>$${recipe.pricePerServing}</p>
+                                        <p>$${recipe.pricePerServing} per serving</p>
                                     </div>
                                     <div class="icon-container">
                                         <i class="far fa-clock icon"></i>
@@ -31,7 +51,7 @@ searchButton.addEventListener('click', (e) => {
                                     </div>
                                     <div class="icon-container">
                                         <i class="far fa-smile icon"></i>
-                                        <p>Match: ${recipe.score}%</p>
+                                        <p>Satisfaction: ${recipe.score}%</p>
                                     </div>
                                     </div>
                                     <p class="recipe-summary">${recipe.summary}</p>
@@ -39,8 +59,10 @@ searchButton.addEventListener('click', (e) => {
                                 </div>
                             </div>
                         </div>`
-                    recipeLister.appendChild(li)
+                    html += div
+                    // recipeLister.appendChild(li)
                 })
+                recipeLister.innerHTML = html
             })
         }
         else {
