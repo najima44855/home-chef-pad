@@ -31,6 +31,17 @@
     margin-top: 20px;
 }
 
+.title-content p {
+    font-family: initial;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.title-content button {
+    font-family: initial;
+    font-weight: bold;
+}
+
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     .title-content {
@@ -38,6 +49,10 @@
         margin: auto;
         display: block;
         float: none;
+    }
+
+    .title-content p {
+        font-size: 16px;
     }
 }
 
