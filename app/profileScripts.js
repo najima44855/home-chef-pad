@@ -14,10 +14,10 @@ const setupIngredientsList = (data) => {
         });
         imageUrl = "https://images-prod.healthline.com/hlcmsresource/images/AN_images/tomatoes-1296x728-feature.jpg";
         const li = `<li>
-            <div id="${ingredient}">
+            <div class="ingredient-container" id="${ingredient}">
+                <button type="button" class="deleteIngredient fa fa-close"></button>
                 <img src=${imageUrl} width="150px" />
-                <button type="button" class="deleteIngredient">delete</button>
-                ${ingredient}
+                <div class="ingredient-name">${ingredient}</div>
             </div>
         </li>`
         html += li
