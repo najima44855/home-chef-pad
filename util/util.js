@@ -1,4 +1,3 @@
-
 const weightings = {
     baking: .8,
     healthFoods: .5,
@@ -55,7 +54,8 @@ function search(ingredients, key) {
                 // Build url for new query which gets more recipe data
                 let query = "https://api.spoonacular.com/recipes/informationBulk?ids=";
 
-                recipes = JSON.parse(body);
+                // recipes = JSON.parse(data);
+                recipes = data;
                 let ids = recipes.map(function(result) {
                     return result.id;
                 });
@@ -70,13 +70,14 @@ function search(ingredients, key) {
                 fetch(query)
                     .then(res => res.json())
                     .then(function(data) {
-                        let recipeData = JSON.parse(body);
-                        data = evaluate(recipes, recipeData);
+                            // let recipeData = JSON.parse(body);
+                            let recipesData = data;
+                            data = evaluate(recipes, recipeData);
 
-                        console.log(data);
-                    }
-                )
-                .catch(err => console.log(err))
+                            console.log(data);
+                        }
+                    )
+                    .catch(err => console.log(err))
             }
         )
         .catch(err => console.log(err));
