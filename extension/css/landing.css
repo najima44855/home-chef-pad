@@ -3,14 +3,30 @@
     height: 200px; */
     /* margin-left: 80%; */
     /* float: right; */
-    max-width: 200px;
+    /* max-width: 200px;
     float: right;
     margin-right: 30%;
     color: white;
+    margin-top: 15px; */
+    max-width: 300px;
+    color: white;
+    margin: auto;
+    vertical-align: center;
+    text-align: center;
+}
+
+.title-content h1 {
+    font-size: 4rem;
 }
 
 #stripe {
     margin-top: 20px;
+}
+
+hr {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    color: white;
 }
 
 @media only screen and (max-width: 768px) {

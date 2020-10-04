@@ -49,6 +49,18 @@ searchButton.addEventListener('click', (e) => {
     })
 })
 
+// hiding search button and displaying message if the user tries to access the recipes page without being signed in
+firebase.auth().onAuthStateChanged(function(user) {
+    const message = document.querySelector('.login-signup-message')
+    if(user) {
+        searchButton.style.display = 'block';
+        message.style.display = "none";
+    } else {
+        searchButton.style.display = 'none';
+        message.style.display = "block";
+    }
+})
+
 // might put this into a function that is called after the above function is done running, as results with hearts
 // are only rendered after the user searches for recipes
 // fill in heart on click - also need to add it to user database
