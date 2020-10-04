@@ -51,6 +51,21 @@
     margin-bottom: 4px;
 }
 
+.recipe-title {
+    font-size: 28px;
+    display: inline;
+}
+
+.favorite-icon {
+    /* float: right; */
+    position: absolute;
+    color: red;
+    /* vertical-align: top; */
+    top: 3%;
+    right: 2%;
+    font-size: 24px;
+}
+
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     .recipe-graphic {
@@ -89,5 +104,14 @@
 
     .recipe-graphic-container {
         border: none;
+    }
+
+    .recipe-title {
+        font-size: 22px;
+    }
+
+    .favorite-icon {
+        top: 5%;
+        right: 8%
     }
   }
