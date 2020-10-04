@@ -42,7 +42,16 @@ li:nth-child(odd) {
     margin: 0 auto;
 }
 
-.ingredientList, .recipeList {
+.recipeList {
+    list-style-type: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: block;
+    padding: 0;
+    min-height: 200px;
+}
+
+.ingredientList {
     list-style-type: none;
     overflow-x: auto;
     overflow-y: hidden;
@@ -96,9 +105,17 @@ li:nth-child(odd) {
 }
 
 .recipe-name {
-    padding-bottom: 10px;
     margin: auto;
+    padding-bottom: 10px;
     text-align: center;
+    font-size: 25px;
+    color: rgb(56, 56, 255);
+}
+
+.recipe-name:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color: rgb(99, 99, 228);
 }
 
 .ingredient-container button, .recipe-container button {

@@ -140,10 +140,10 @@ const setupRecipeList = (data, user) => {
                         <div class="img-container">
                             <img src=${recipe.recipeImg} width="150px" />
                         </div>
-                    <a class="recipe-name">${recipe.recipeTitle}</a>
+                    <div class="recipe-name"><a>${recipe.recipeTitle}</a></div>
                 </div>
             </li>`
-            document.getElementById('recipeList').innerHTML = document.getElementById('ingredientList').innerHTML + li;
+            document.getElementById('recipeList').innerHTML = document.getElementById('recipeList').innerHTML + li;
         });  
     }
     

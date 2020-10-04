@@ -1,12 +1,30 @@
+@font-face {
+    font-family: "VeganStyle";
+    src: url('../fonts/VeganStylePersonalUse-5Y58.ttf');
+}
+
+.navbar-brand {
+    font-family: "VeganStyle";
+}
+
 .title-content {
     /* width: 200px;
     height: 200px; */
     /* margin-left: 80%; */
     /* float: right; */
-    max-width: 200px;
-    float: right;
-    margin-right: 30%;
+    text-align: center;
     color: white;
+    font-family: "VeganStyle";
+    width: 100%;
+    margin-top: 150px;
+}
+
+.title-content h1 {
+    font-size: 70px;
+}
+
+.fa-icon {
+    margin: 25px 0 20px 0;
 }
 
 #stripe {
