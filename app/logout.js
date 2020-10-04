@@ -5,6 +5,7 @@ logout.addEventListener('click', (e) => {
     auth.signOut()
     .then(() => {
         console.log('user signed out')
+        window.location.href = "../html/index.html";
     })
     .catch(e => {
         console.log(e.message)

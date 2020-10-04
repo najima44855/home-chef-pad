@@ -7,6 +7,7 @@ loginForm.addEventListener('submit', (e) => {
     auth.signInWithEmailAndPassword(email, password)
     .then(cred => {
         console.log(cred)
+        window.location.href = "../html/profile.html";
     })
     // user logged in with incorrect credentials - maybe add some html like what bootstrap does for forms
     .catch(e => {

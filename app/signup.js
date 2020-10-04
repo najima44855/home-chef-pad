@@ -20,7 +20,7 @@ signupForm.addEventListener('submit', (e) => {
         }
         db.collection("users").doc(userId).set(userData).then(() => {
             console.log("User successfully added to the DB!");
-            window.location.href = "../html/recipes.html"; // redirect user to their profile page
+            window.location.href = "../html/profile.html"; // redirect user to their profile page
         })
         .catch((e) => {
             console.log("Error adding user to the DB: ", e);
